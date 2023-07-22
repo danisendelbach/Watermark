@@ -1,13 +1,10 @@
 ####Take Watermark-Image without any background
 
-import time
-import tkinter
 import os
 from tkinter import *
 from tkinter import ttk, Checkbutton
 from PIL import Image, ImageTk
 from tkinter import filedialog
-import numpy as np
 
 from image import FinalImage, Watermark
 
@@ -92,7 +89,7 @@ def resize_canvas(event):
         show_img(resized_photo)
 
 
-def save():
+def save_all():
     folder_path = filedialog.askdirectory()
     for to_save_photo in photo_folder:
 
@@ -101,6 +98,12 @@ def save():
             # Save the image using the PIL library
             file_path = f"{folder_path}/{name_without_format}_watermarked.png"
             to_save_photo.final_img.save(file_path)
+
+
+def save_file():
+    file_to_save = photo.final_img
+    filename = filedialog.asksaveasfilename(defaultextension=".png")
+    file_to_save.save(filename)
 
 
 def browse_img(button_id):
@@ -268,7 +271,7 @@ final_font_list = os.listdir("C:/Windows/Fonts")
 font = StringVar()
 font.set("BAUHS93.TTF")
 font_type = OptionMenu(frame2, font, *final_font_list, command=change_font)
-font_type.grid(column=5, row=12, sticky=E)
+font_type.grid(column=1, row=8, sticky=E)
 
 # Size and Opacity Slider
 slider = Scale(frame2, from_=0, to=100, orient='horizontal', command=change_watermark_size)
@@ -305,8 +308,11 @@ original_color_btn.grid(column=1, row=6)
 apply_to_all_btn = ttk.Button(frame2, text="Apply to all", command=apply_to_all)
 apply_to_all_btn.grid(column=0, row=9)
 
-save_btn = ttk.Button(frame2, text="Save", command=save)
-save_btn.grid(column=1, row=9)
+save_all_btn = ttk.Button(frame2, text="Save All", command=save_all)
+save_all_btn.grid(column=1, row=9)
+
+save_file_btn = ttk.Button(frame2, text="Save File", command=save_file)
+save_file_btn.grid(column=1, row=10)
 
 root.mainloop()
 
