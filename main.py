@@ -196,7 +196,7 @@ frame2.grid(column=1, row=0, sticky='nsew',padx=10, pady=10)
 frame2.grid_columnconfigure(0, weight=1)
 
 ###Frame1--The Preview of Final Image / Left Side
-canvas = Canvas(frame1, background="red")
+canvas = Canvas(frame1)
 canvas.grid(column=0,row=0,sticky="nsew")
 canvas.bind("<Configure>", resize_canvas)
 print(frame1.winfo_width())
