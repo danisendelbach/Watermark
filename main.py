@@ -1,3 +1,4 @@
+####Take Watermark-Image without any background
 import time
 import tkinter
 from tkinter import *
