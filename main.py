@@ -1,4 +1,5 @@
 ####Take Watermark-Image without any background
+
 import time
 import tkinter
 from tkinter import *
@@ -54,6 +55,14 @@ def change_watermark_size(event):
     print(photo.size_factor)
     resize_canvas(event)
 
+def change_opacity(event):
+    new_opacity = opacity_slider.get()
+    print(new_opacity)
+    cur_color_list = list(photo.watermark_obj.cur_color)
+    cur_color_list[-1]=new_opacity
+    photo.watermark_obj.cur_color = tuple(cur_color_list)
+    photo.format_img()
+    resize_canvas(None)
 def show_img(cur_photo):
 
     photo_displayed = ImageTk.PhotoImage(cur_photo)
@@ -118,7 +127,8 @@ def browse_img(button_id):
 def change_color(color_selected):
     colors_to_select = {
         "white":(255,255,255,255),
-        "red": (255, 0, 0, 50),
+        "red": (255, 0, 0, 255),
+        "blue":(176,224,230,255),
         "original": {"Image": {"colored_img":photo.watermark_obj.img},
                      "Label": {"cur_color": photo.watermark_obj.original_color}
                      }
@@ -207,7 +217,7 @@ print(frame1.winfo_height())
 ###Frame2--All the different features / Right Side
 
 #Selected Photos
-upload_button = ttk.Button(frame2, text="Upload Photo",state="disabled", command=lambda: browse_img(1))
+upload_button = ttk.Button(frame2, text="Upload",state="disabled", command=lambda: browse_img(1))
 upload_button.grid(column=0, row=0)
 
 photo_box = Listbox(frame2, height=5, exportselection=False)
@@ -236,13 +246,14 @@ watermark_box.grid(columnspan=2, column=1, row=1)
 
 
 
-#Size Slider
+#Size and Opacity Slider
 slider = Scale(frame2, from_=0, to=100, orient='horizontal', command=change_watermark_size)
 slider.set(50)
 slider.grid(column=0, row=2, columnspan=2, padx=10, pady=5)
-colors = {
-    1:[]
-}
+
+opacity_slider = Scale(frame2, from_=0, to=255, orient='horizontal', command=change_opacity)
+opacity_slider.set(255)
+opacity_slider.grid(column= 1, row=2, columnspan=2, padx=10, pady=5)
 
 
 
