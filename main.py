@@ -239,7 +239,7 @@ print(frame1.winfo_height())
 ###Frame2--All the different features / Right Side
 
 # Selected Photos
-upload_button = ttk.Button(frame2, text="Upload", state="disabled", command=lambda: browse_img(1))
+upload_button = ttk.Button(frame2, text="Upload Photo", state="disabled", command=lambda: browse_img(1))
 upload_button.grid(column=0, row=0)
 
 photo_box = Listbox(frame2, height=5, exportselection=False)
